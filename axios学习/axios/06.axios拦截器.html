@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.3/axios.min.js"></script>
+</head>
+<body>
+    
+</body>
+<!-- <script>
+
+axios.interceptors.request.use(function (config) {
+    console.log('请求拦截器 成功')
+    // 1.抛出异常,包含return,throw的参数即为失败的参数，不会进入响应成功拦截器，进入响应失败拦截器
+    throw '参数出了问题'
+    // 2.或返回promise成功的参数,config
+    // return config;
+}, function (error) {
+    console.log('请求拦截器 失败')
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+    console.log('响应拦截器 成功')
+    return response;
+  }, function (error) {
+    console.log('响应拦截器 失败')
+    return Promise.reject(error);
+  });
+
+  axios({
+    method:'GET',
+    url:"http://localhost:3000/posts"
+  }).then(response => {     // 响应拦截器成功走then通道
+    console.log(response)
+  }).catch(reason => {
+    // 
+    console.log('自定义失败回调')   // 响应失败，通过catch答应reason信息
+    console.log(reason)            // 打印错误原因
+  })
+</script> -->
+
+<script>
+// 请求拦截器是先进后执行
+// 响应拦截器是先进先执行
+axios.interceptors.request.use(function (config) {
+    console.log('请求拦截器 -1 成功')
+    // 在拦截器中修改默认参数
+    config.params = {a:100}
+    return config;
+}, function (error) {
+    console.log('请求拦截器 -1 失败')
+    return Promise.reject(error);
+});
+
+axios.interceptors.request.use(function (config) {
+    console.log('请求拦截器 -2 成功')
+    // 在拦截器中修改默认配置中的超时时间
+    config.params = {a:200}
+    config.timeout = 2000;
+    return config
+}, function (error) {
+    console.log('请求拦截器 -2 失败')
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+    console.log('响应拦截器 1 成功')
+    return response.data;
+  }, function (error) {
+    console.log('响应拦截器 1 失败')
+    return Promise.reject(error);
+  });
+
+axios.interceptors.response.use(function (response) {
+    console.log('响应拦截器 2 成功')
+    // console.log(response+"响应拦截器2号")
+    return response;
+  }, function (error) {
+    console.log('响应拦截器 2 失败')
+    return Promise.reject(error);
+  });
+
+  axios({
+    method:'GET',
+    url:"http://localhost:3000/posts"
+  }).then(response => {     // 响应拦截器成功走then通道
+    console.log(response)
+  }).catch(reason => {
+    // 
+    console.log('自定义失败回调')   // 响应失败，通过catch答应reason信息
+    console.log(reason)            // 打印错误原因
+  })
+</script>
+</html>

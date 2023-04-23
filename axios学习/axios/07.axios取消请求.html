@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link crossorigin="anonymous" href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.3/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class ='page-header'>axios取消请求</h2>
+        <button class="btn btn-primary">发送请求</button>
+        <button class="btn btn-warning">取消请求</button>
+    </div>
+</body>
+<script>
+    // 获取按钮
+    // doms对象，获取所有的按钮到一个数组里
+    const btns = document.querySelectorAll('button')
+
+    let cancel = null
+
+    // 添加绑定事件方法一
+    btns[0].onclick = function(){
+        // 判断是否有请求没有完成
+        // 没有完成即取消，重新请求
+        if(cancel!=null){
+            cancel()
+        }
+        axios({
+            method:'GET',
+            url:'http://localhost:3000/posts',
+            // 1. 配置对象的属性
+            cancelToken: new axios.CancelToken(function(c){
+                // c的作用，判断请求是否完成；{}代表一个作用域
+                // 将c的值付给cancel
+                cancel = c;
+            })
+        }).then(response => {
+            console.log(response)
+            // 请求完成之后，设置其为空值
+            cancel = null
+        })
+    }
+ 
+    // 取消请求
+    btns[1].onclick = function(){
+       // 调用cancel()函数取消请求
+       cancel();
+    }
+
+</script>
+</html>

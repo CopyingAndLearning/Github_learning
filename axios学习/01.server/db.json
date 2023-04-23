@@ -1,0 +1,54 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "1h",
+      "author": "坚持学习"
+    },
+    {
+      "title": "今天天气不错",
+      "author": "研二",
+      "id": 3
+    },
+    {
+      "title": "今天天气不错",
+      "author": "yansan",
+      "id": 4
+    },
+    {
+      "title": "今天天气不错",
+      "author": "yansan",
+      "id": 6
+    },
+    {
+      "title": "今天天气不错",
+      "author": "yansan",
+      "id": 7
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    },
+    {
+      "body": "喜欢",
+      "postId": 2,
+      "id": 2
+    },
+    {
+      "body": "喜欢",
+      "postId": 2,
+      "id": 3
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
